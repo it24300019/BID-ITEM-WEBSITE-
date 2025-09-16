@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bidder Dashboard</title>
+    <style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+  body{background:#0d1b2a;color:#fff;line-height:1.6;}
+
+  /* Navbar */
+  nav{background:#1b263b;display:flex;justify-content:space-between;align-items:center;padding:15px 30px;box-shadow:0 4px 8px rgba(0,0,0,0.5);}
+  nav .logo{font-size:1.5rem;color:#fca311;font-weight:bold;}
+  nav ul{list-style:none;display:flex;gap:20px;}
+  nav ul li a{color:#fff;text-decoration:none;font-weight:500;padding:6px 12px;border-radius:6px;transition:0.3s;}
+  nav ul li a:hover{background:#457b9d;transform:scale(1.05);}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,#1b263b,#415a77);color:#fff;padding:60px 20px;text-align:center;position:relative;overflow:hidden;}
+  .hero h1{font-size:2.5rem;margin-bottom:10px;}
+  .hero p{font-size:1.2rem;}
+
+  /* Item Grid */
+  .item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;padding:30px;}
+  .item-card{background:#1b263b;border-radius:12px;overflow:hidden;box-shadow:0 4px 8px rgba(0,0,0,0.5);transition:transform 0.3s ease, box-shadow 0.3s ease;}
+  .item-card:hover{transform:translateY(-5px);box-shadow:0 6px 12px rgba(0,0,0,0.7);}
+  .item-card img{width:100%;height:180px;object-fit:cover;cursor:pointer;transition:transform 0.3s;}
+  .item-card img:hover{transform:scale(1.05);}
+  .item-card .content{padding:15px;}
+  .item-card h3{color:#a8dadc;margin-bottom:5px;}
+  .item-card p{color:#e0e0e0;font-size:0.9rem;margin-bottom:10px;}
+  .price{color:#fca311;font-weight:bold;}
+  .discount{color:#e63946;font-weight:bold;margin-left:10px;}
+  .btn{display:inline-block;padding:8px 16px;border-radius:25px;border:none;cursor:pointer;transition:all 0.3s ease;text-decoration:none;font-size:0.9rem;margin-right:5px;}
+  .btn-primary{background:#457b9d;color:#fff;}
+  .btn-primary:hover{background:#1d3557;transform:scale(1.05);}
+  .btn-secondary{background:#fca311;color:#000;}
+  .btn-secondary:hover{background:#ffb703;transform:scale(1.05);}
+
+  /* Bids & Cart Section */
+  .bids-cart{background:#1b263b;padding:20px;margin:20px 30px;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.5);}
+  .bids-cart h2{margin-bottom:15px;color:#fca311;}
+  .bid-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333;}
+  .total{margin-top:10px;font-weight:bold;color:#a8dadc;}
+
+  /* Notification */
+  #notification{position:fixed;top:20px;right:20px;background:#fca311;color:#000;padding:10px 20px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.5);display:none;z-index:1000;}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">BidZone</div>
+    <ul>
+        <li><a href="seller.html">Seller</a></li>
+        <li><a href="bidder.html">Bidder</a></li>
+        <li><a href="users.html">Users</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>Bidder Dashboard</h1>
+    <p>Place your bids, see your cart, and total bids!</p>
+</section>
+
+<!-- Items -->
+<section class="item-grid" id="itemGrid"></section>
+
+<!-- Bids & Cart -->
+<div class="bids-cart">
+    <h2>My Bids / Cart</h2>
+    <div id="bidList"></div>
+    <div class="total" id="totalAmount">Total: $0</div>
+</div>
+
+<!-- Notification -->
+<div id="notification"></div>
+
+<script>
+const items=[
+  {title:"Smartphone", description:"Latest model", price:200, discount:20, image:"https://via.placeholder.com/300x180?text=Smartphone"},
+  {title:"Laptop", description:"High performance", price:450, discount:50, image:"https://via.placeholder.com/300x180?text=Laptop"},
+  {title:"T-Shirt", description:"Comfortable cotton t-shirt", price:25, discount:5, image:"https://via.placeholder.com/300x180?text=T-Shirt"},
+  {title:"Sofa", description:"Luxury 3-seater sofa", price:500, discount:70, image:"https://via.placeholder.com/300x180?text=Sofa"}
+];
+
+const itemGrid=document.getElementById('itemGrid');
+const bidList=document.getElementById('bidList');
+const totalAmount=document.getElementById('totalAmount');
+const notification=document.getElementById('notification');
+let cart=[];
+
+function renderItems(){
+  itemGrid.innerHTML='';
+  items.forEach((item,index)=>{
+    const card=document.createElement('div');
+    card.className='item-card';
+    card.innerHTML=`
+      <img src="${item.image}" alt="${item.title}">
+      <div class="content">
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <span class="price">$${item.price}</span> <span class="discount">$${item.discount} off</span><br><br>
+        <button class="btn btn-primary" onclick="placeBid(${index})">Place Bid</button>
+        <button class="btn btn-secondary" onclick="addToCart(${index})">Add to Cart</button>
+      </div>
+    `;
+    itemGrid.appendChild(card);
+  });
+}
+
+function placeBid(index){
+  const item=items[index];
+  cart.push(item);
+  showNotification(`Bid placed on ${item.title} for $${item.price}`);
+  renderCart();
+}
+
+function addToCart(index){
+  const item=items[index];
+  cart.push(item);
+  showNotification(`${item.title} added to cart`);
+  renderCart();
+}
+
+function renderCart(){
+  bidList.innerHTML='';
+  let total=0;
+  cart.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='bid-item';
+    div.innerHTML=`<span>${item.title}</span><span>$${item.price}</span>`;
+    bidList.appendChild(div);
+    total+=item.price;
+  });
+  totalAmount.textContent=`Total: $${total}`;
+}
+
+function showNotification(msg){
+  notification.textContent=msg;
+  notification.style.display='block';
+  setTimeout(()=>{notification.style.display='none';},2000);
+}
+
+// Initial render
+renderItems();
+</script>
+
+</body>
+</html>
