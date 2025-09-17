@@ -436,5 +436,5 @@ public class UserManagementController implements Initializable {
 
     private void showError(String message) {
         txtOutput.appendText("❌ ERROR: " + message + "\n\n");
-    }
+    }// Move cursor back to first field
 }

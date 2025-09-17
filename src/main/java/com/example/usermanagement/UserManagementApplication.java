@@ -10,4 +10,4 @@ public class UserManagementApplication {
         SpringApplication.run(UserManagementApplication.class, args);
     }
 
-}
+}// Move cursor back to first field

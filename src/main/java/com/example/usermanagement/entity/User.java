@@ -135,5 +135,5 @@ public class User {
     @Override
     public int hashCode() {
         return userId != null ? userId.hashCode() : 0;
-    }
+    }// Move cursor back to first field
 }

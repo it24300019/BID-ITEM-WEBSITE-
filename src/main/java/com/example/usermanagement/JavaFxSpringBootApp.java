@@ -72,5 +72,5 @@ public class JavaFxSpringBootApp extends Application {
         }
         Platform.exit();
         System.out.println("👋 User Management System Shutdown Complete");
-    }
+    }// Move cursor back to first field
 }

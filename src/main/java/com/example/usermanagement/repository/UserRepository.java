@@ -35,4 +35,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Count active users
     @Query("SELECT COUNT(u) FROM User u WHERE u.isActive = true")
     long countActiveUsers();
-}
+}// Move cursor back to first field

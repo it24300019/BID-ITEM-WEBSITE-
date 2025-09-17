@@ -108,4 +108,5 @@ public class JavaFxStudentController implements Initializable {
         txtAge.clear();
         txtStudentId.requestFocus(); // Move cursor back to first field
     }
-}
+}// Move cursor back to first field
+
