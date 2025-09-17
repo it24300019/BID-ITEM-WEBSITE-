@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" prefHeight="700.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.usermanagement.controller.UserManagementController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <!-- Header -->
+    <Label alignment="CENTER" text="User Management System" textAlignment="CENTER">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+
+    <Separator prefWidth="200.0" />
+
+    <!-- User Registration/Edit Form -->
+    <TitledPane animated="false" expanded="true" text="User Registration / Profile Management">
+        <content>
+            <VBox spacing="15.0">
+                <padding>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                </padding>
+
+                <!-- Row 1: Username and Email -->
+                <HBox spacing="15.0">
+                    <children>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Username *" />
+                                <TextField fx:id="txtUsername" promptText="Enter username" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Email *" />
+                                <TextField fx:id="txtEmail" promptText="Enter email address" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Row 2: Password and Full Name -->
+                <HBox spacing="15.0">
+                    <children>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Password *" />
+                                <PasswordField fx:id="txtPassword" promptText="Enter password" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Full Name *" />
+                                <TextField fx:id="txtFullName" promptText="Enter full name" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Row 3: Age and Gender -->
+                <HBox spacing="15.0">
+                    <children>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Age" />
+                                <TextField fx:id="txtAge" promptText="Enter age" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Gender" />
+                                <ComboBox fx:id="cmbGender" prefWidth="150.0" promptText="Select gender" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Row 4: Phone Number and User Role -->
+                <HBox spacing="15.0">
+                    <children>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Phone Number" />
+                                <TextField fx:id="txtPhoneNumber" promptText="Enter phone number" />
+                            </children>
+                        </VBox>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="User Role" />
+                                <ComboBox fx:id="cmbUserRole" prefWidth="150.0" promptText="Select role" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Row 5: Preferences -->
+                <VBox spacing="5.0">
+                    <children>
+                        <Label text="Preferences" />
+                        <TextArea fx:id="txtPreferences" prefRowCount="3" promptText="Enter user preferences (optional)" wrapText="true" />
+                    </children>
+                </VBox>
+
+                <!-- Active Status -->
+                <CheckBox fx:id="chkIsActive" selected="true" text="Active User" />
+
+                <!-- Action Buttons - UPDATED WITH DELETE ACCOUNT BUTTON -->
+                <HBox alignment="CENTER" spacing="15.0">
+                    <children>
+                        <Button fx:id="btnSave" onAction="#handleSaveUser" prefWidth="120.0" text="📝 Register" />
+                        <Button fx:id="btnUpdate" onAction="#handleUpdateUser" prefWidth="120.0" text="🔐 Login / Update" />
+                        <Button fx:id="btnDeleteMyAccount" onAction="#handleDeleteMyAccount" prefWidth="140.0" text="🗑️ Delete My Account" style="-fx-background-color: #ff4444; -fx-text-fill: white;" />
+                        <Button fx:id="btnLogout" onAction="#handleLogout" prefWidth="100.0" text="🚪 Logout" />
+                        <Button fx:id="btnClear" onAction="#handleClearForm" prefWidth="100.0" text="🧹 Clear" />
+                    </children>
+                </HBox>
+            </VBox>
+        </content>
+    </TitledPane>
+
+    <!-- User Management Actions -->
+    <TitledPane animated="false" expanded="true" text="User Management Actions">
+        <content>
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                </padding>
+
+                <!-- Search and Filter -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <TextField fx:id="txtSearch" prefWidth="200.0" promptText="Search by name or username" />
+                        <Button fx:id="btnSearch" onAction="#handleSearchUsers" text="🔍 Search" />
+                        <ComboBox fx:id="cmbFilterRole" promptText="Filter by role" />
+                        <Button fx:id="btnLoadAllUsers" onAction="#handleLoadAllUsers" text="📋 Load All Users" />
+                    </children>
+                </HBox>
+            </VBox>
+        </content>
+    </TitledPane>
+
+    <!-- Results Area -->
+    <TitledPane animated="false" expanded="true" text="Results" VBox.vgrow="ALWAYS">
+        <content>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                <content>
+                    <TextArea fx:id="txtOutput" editable="false" prefRowCount="15" wrapText="true" />
+                </content>
+            </ScrollPane>
+        </content>
+    </TitledPane>
+</VBox>
