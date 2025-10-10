@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell • EWeb</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-brand" onclick="location.href='index.html'">EWeb</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="user.html">Browse</a>
+            <a href="seller.html" class="active">Sell</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Add New Item</h2>
+        <form id="add-item-form" class="card form">
+            <div class="grid">
+                <label>
+                    <span>Title</span>
+                    <input type="text" id="title" class="input" required>
+                </label>
+                <label>
+                    <span>Description</span>
+                    <input type="text" id="description" class="input" required>
+                </label>
+                <label>
+                    <span>Category ID</span>
+                    <input type="text" id="categoryId" class="input" placeholder="e.g., ELEC" required>
+                </label>
+                <label>
+                    <span>Category Name</span>
+                    <input type="text" id="categoryName" class="input" placeholder="e.g., Electronics" required>
+                </label>
+                <label>
+                    <span>Starting Price</span>
+                    <input type="number" step="0.01" id="startingPrice" class="input" required>
+                </label>
+                <label>
+                    <span>Deadline</span>
+                    <input type="datetime-local" id="deadline" class="input" required>
+                </label>
+                <label class="full">
+                    <span>Image URL</span>
+                    <input type="text" id="imageUrl" class="input" required>
+                </label>
+            </div>
+            <button type="submit" class="btn primary">Add Item</button>
+        </form>
+
+        <h2 class="section-title">Your Items</h2>
+        <div id="seller-items" class="item-grid"></div>
+    </main>
+
+    <footer class="footer">© <span id="year"></span> EWeb • All rights reserved</footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
