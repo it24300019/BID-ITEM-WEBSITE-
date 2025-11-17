@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse • EWeb</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-brand" onclick="location.href='index.html'">EWeb</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="user.html" class="active">Browse</a>
+            <a href="seller.html">Sell</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Available Items</h2>
+        <div class="filters">
+            <input id="search" class="input" placeholder="Search by title..." />
+        </div>
+        <div id="user-items" class="item-grid"></div>
+    </main>
+
+    <footer class="footer">© <span id="year"></span> EWeb • All rights reserved</footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        const search = document.getElementById('search');
+        search.addEventListener('input', () => filterItems('user-items', search.value));
+    </script>
+</body>
+</html>

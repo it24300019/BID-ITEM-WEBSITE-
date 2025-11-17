@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EWeb • Auction Marketplace</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-brand" onclick="location.href='index.html'">EWeb</div>
+        <nav class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="user.html">Browse</a>
+            <a href="seller.html">Sell</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Bid. Win. Repeat.</h1>
+            <p class="hero-subtitle">Discover great deals and auction your items with a modern, fast experience.</p>
+            <div class="hero-cta">
+                <a class="btn primary" href="user.html">Browse Items</a>
+                <a class="btn ghost" href="seller.html">Sell an Item</a>
+            </div>
+        </div>
+        <div class="hero-art"></div>
+    </section>
+
+    <main class="container">
+        <h2 class="section-title">Latest Items</h2>
+        <div id="item-list" class="item-grid"></div>
+    </main>
+
+    <footer class="footer">© <span id="year"></span> EWeb • All rights reserved</footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
